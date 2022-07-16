@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.10.5 on win32)" generated="20220716 15:42:28.633" rpa="false">
+<suite id="s1" name="TCP" source="C:\Users\PRADEEP\PycharmProjects\TestProject\TestSuite\TCP.robot">
+<test id="s1-t1" name="Insert_singleRecord">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+</arguments>
+<msg timestamp="20220716 15:42:28.778" level="INFO">Creating Session using : alias=mysession, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220716 15:42:28.777" endtime="20220716 15:42:28.778"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>C:\\Users\\PRADEEP\\PycharmProjects\\TestProject\\TestSuite/DataFile.csv</arg>
+</arguments>
+<assign>
+<var>${file}</var>
+</assign>
+<msg timestamp="20220716 15:42:28.780" level="INFO" html="yes">Getting file '&lt;a href="file://C:\Users\PRADEEP\PycharmProjects\TestProject\TestSuite\DataFile.csv"&gt;C:\Users\PRADEEP\PycharmProjects\TestProject\TestSuite\DataFile.csv&lt;/a&gt;'.</msg>
+<msg timestamp="20220716 15:42:28.780" level="INFO">${file} = natid,name,gender,salary,birthday,tax
+India,bhanu,M,23523,12022022,15
+</msg>
+<status status="PASS" starttime="20220716 15:42:28.779" endtime="20220716 15:42:28.780"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>file</arg>
+<arg>${file}</arg>
+</arguments>
+<assign>
+<var>${files}</var>
+</assign>
+<msg timestamp="20220716 15:42:28.781" level="INFO">${files} = {'file': 'natid,name,gender,salary,birthday,tax\nIndia,bhanu,M,23523,12022022,15\n'}</msg>
+<status status="PASS" starttime="20220716 15:42:28.780" endtime="20220716 15:42:28.781"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=multipart/form-data; boundary=1</arg>
+</arguments>
+<assign>
+<var>${Header}</var>
+</assign>
+<msg timestamp="20220716 15:42:28.782" level="INFO">${Header} = {'Content-Type': 'multipart/form-data; boundary=1'}</msg>
+<status status="PASS" starttime="20220716 15:42:28.782" endtime="20220716 15:42:28.782"></status>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/calculator/uploadLargeFileForInsertionToDatabase</arg>
+<arg>data=${files}</arg>
+<arg>headers=${Header}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20220716 15:43:45.849" level="INFO">POST Request : url=http://localhost:8080/calculator/uploadLargeFileForInsertionToDatabase 
+ path_url=/calculator/uploadLargeFileForInsertionToDatabase 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'multipart/form-data; boundary=1', 'Content-Length': '99'} 
+ body=file=natid%2Cname%2Cgender%2Csalary%2Cbirthday%2Ctax%0AIndia%2Cbhanu%2CM%2C23523%2C12022022%2C15%0A 
+ </msg>
+<msg timestamp="20220716 15:43:45.849" level="INFO">POST Response : url=http://localhost:8080/calculator/uploadLargeFileForInsertionToDatabase 
+ status=400, reason= 
+ headers={'Content-Type': 'application/json;charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Date': 'Sat, 16 Jul 2022 10:13:45 GMT', 'Connection': 'close'} 
+ body={"timestamp":"2022-07-16T10:13:45.846+0000","status":400,"error":"Bad Request","message":"Required request part 'file' is not present","path":"/calculator/uploadLargeFileForInsertionToDatabase"} 
+ </msg>
+<msg timestamp="20220716 15:43:45.851" level="FAIL">HTTPError: 400 Client Error:  for url: http://localhost:8080/calculator/uploadLargeFileForInsertionToDatabase</msg>
+<status status="FAIL" starttime="20220716 15:42:28.782" endtime="20220716 15:43:45.851"></status>
+</kw>
+<status status="FAIL" starttime="20220716 15:42:28.776" endtime="20220716 15:43:45.852" critical="yes">HTTPError: 400 Client Error:  for url: http://localhost:8080/calculator/uploadLargeFileForInsertionToDatabase</status>
+</test>
+<status status="FAIL" starttime="20220716 15:42:28.635" endtime="20220716 15:43:45.853"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="TCP">TCP</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
