@@ -14,12 +14,11 @@ Insert_MultipleRecord
      ${header}=  Create Dictionary  Content-Type=application/json
      ${response}=  Post Request  mysession  calculator/insertMultiple  data=${body}  headers=${header}
      Log To Console    ${response.status_code}
-   # Log To Console    ${response_content}
 
   #Validations
 
   ${Status_code}=  Convert To String   ${response.status_code}
   Should Be Equal    ${Status_code}  202
-  # ${res_body}=  Convert To String    ${response_content}
-   #Should Contain    ${res_body}    OK
+  ${res_body}=  Convert To String    ${response.content}
+  Should Contain    ${res_body}    Alright
 
