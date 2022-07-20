@@ -18,4 +18,6 @@ Insert_singleRecord
   
   ${Status_code}=  Convert To String   ${response.status_code}
   Should Be Equal    ${Status_code}  202
+   ${res_body}=  Convert To String    ${response.content}
+  Should Contain    ${res_body}    Alright
 
